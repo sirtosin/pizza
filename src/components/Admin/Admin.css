@@ -1,0 +1,35 @@
+.admin__container {
+  padding: 50px;
+  display: flex;
+}
+
+.item {
+  flex: 1;
+}
+
+.trTitle td img {
+  width: 100px;
+  height: 100px;
+}
+
+.table {
+  width: 100%;
+  border-spacing: 20px;
+  text-align: left;
+}
+
+.admin__button {
+  border: none;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.admin__button:first-child {
+  background-color: teal;
+  margin-right: 10px;
+}
+
+.admin__button:last-child {
+  background-color: crimson;
+}

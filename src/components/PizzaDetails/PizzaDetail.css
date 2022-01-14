@@ -1,0 +1,23 @@
+.pizzadetail__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 2em;
+  text-transform: capitalize;
+}
+
+.pizzadetail__container img {
+  width: 300px;
+  height: 300px;
+}
+.pizzadetail__container aside button {
+  border: 1px solid orangered;
+  padding: 1em 2em;
+  color: white;
+  background: orangered;
+  border-radius: 1.75em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

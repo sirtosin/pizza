@@ -1,0 +1,10 @@
+.hero__container {
+  height: 700px;
+  width: 100%;
+  background-color: #d1411e;
+  position: relative;
+}
+.hero__container img {
+  width: 100%;
+  object-fit: contain;
+}

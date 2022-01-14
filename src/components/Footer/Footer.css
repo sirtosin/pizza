@@ -1,0 +1,29 @@
+.footer__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 500px;
+  width: 100%;
+  background: rgb(70, 69, 68);
+  color: #fff;
+  margin-top: 2em;
+}
+
+.extra {
+  flex-basis: 40%;
+  text-transform: capitalize;
+}
+.extra img {
+  width: 500px;
+  height: 400px;
+}
+.footer__contact {
+  flex-basis: 60%;
+}
+
+.footer__contact h1,
+h3,
+h4,
+address {
+  font-size: 24px;
+}
