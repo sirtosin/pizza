@@ -1,27 +1,23 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import CurrencyFormat from "react-currency-format";
+import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./PizzaMenu.css";
 
 const PizzaMenu = () => {
-  const [pizzaMenu, setPizzaMenu] = useState([]);
+  const myproduct = useSelector((state) => state.product.product);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+
   useEffect(() => {
-    const fetchData = async () => {
+    if (myproduct) {
+      setIsLoading(false);
+      setError(false);
+    } else {
       setIsLoading(true);
-      try {
-        const result = await axios.get("http://localhost:2000");
-        pizzaMenu.push(result.data);
-        setPizzaMenu(result.data);
-        setIsLoading(false);
-        console.log("pizaa", pizzaMenu);
-      } catch (error) {
-        setError(true);
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+      setError(true);
+    }
+  }, [myproduct]);
 
   return (
     <div className="pizza__menu__container">
@@ -42,17 +38,36 @@ const PizzaMenu = () => {
       </div>
       <section className="pizza__menu__products">
         {isLoading && <h1>loading...</h1>}
-        {error && <h1>oops!! error occured.</h1>}
-        <a>
-          {pizzaMenu.map((product) => {
-            <article key={product._id}>
-              <img src={product.img} />
-              <h4>{product.title}</h4>
-              <p>{product.prices}[0]</p>
-              <p>{product.desc}</p>
-            </article>;
-          })}
-        </a>
+        {error && <h1>oops!!! error occured</h1>}
+        {myproduct.length === 0 ? (
+          <p>There are no products</p>
+        ) : (
+          <a>
+            {myproduct.length > 0 &&
+              myproduct.map((product) => (
+                <aside key={product._id}>
+                  <Link to={`/${product._id}`}>
+                    <article>
+                      <img src={product.img} />
+                      <h4>{product.title}</h4>
+                      <p>
+                        <CurrencyFormat
+                          renderText={(value) => <> {value}</>}
+                          decimalScale={2}
+                          value={product.prices}
+                          displayType={"text"}
+                          thousandSeparator={true}
+                          prefix={"N"}
+                        />
+                      </p>
+                      <p>{product.desc}</p>
+                    </article>
+                  </Link>
+                </aside>
+              ))}
+          </a>
+        )}
+        ;
       </section>
     </div>
   );

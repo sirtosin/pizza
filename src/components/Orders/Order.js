@@ -1,5 +1,16 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router";
+import { fetchAsyncOrderDetail } from "../redux/orderSlice";
 import "./Order.css";
+
 const Order = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAsyncOrderDetail(id));
+  }, [dispatch, id]);
+  const order = useSelector((state) => state.order.selectOrder);
   return (
     <div className="order__container">
       <div className="order__left">
@@ -8,21 +19,25 @@ const Order = () => {
             <tr className="trTitle">
               <th>Order ID</th>
               <th>Customer</th>
+              <th>Phone</th>
               <th>Address</th>
               <th>Total</th>
             </tr>
-            <tr className="order__tr">
+            <tr className="order__tr" key={order._id}>
               <td>
-                <span className="id">12234</span>
+                <span className="id">{order._id}</span>
               </td>
               <td>
-                <span className="name">tosinn smith</span>
+                <span className="name"> {order.customer}</span>
               </td>
               <td>
-                <span className="address">ogba ikeja</span>
+                <span className="name"> {order.phone}</span>
               </td>
               <td>
-                <span className="total">N3,200</span>
+                <span className="address">{order.address}</span>
+              </td>
+              <td>
+                <span className="total">{order.total}</span>
               </td>
             </tr>
           </table>
@@ -86,13 +101,15 @@ const Order = () => {
         <div className="wrapper">
           <h2 className="title">CART TOTAL</h2>
           <div className="totalText">
-            <b className="totalTextTitle">Subtotal:</b>N3,200
+            <b className="totalTextTitle">Subtotal:</b>
+            {order.total}
           </div>
           <div className="totalText">
             <b className="totalTextTitle">Discount:</b>N0.00
           </div>
           <div className="totalText">
-            <b className="totalTextTitle">Total:</b>N3,200
+            <b className="totalTextTitle">Total:</b>
+            {order.total}
           </div>
           <button disabled className="button">
             PAID

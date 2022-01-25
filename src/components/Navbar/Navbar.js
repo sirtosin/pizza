@@ -1,6 +1,9 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <div className="navbar__container">
       <div className="left">
@@ -29,7 +32,11 @@ const Navbar = () => {
             <h3>home</h3>
           </Link>
         </a>
-        <h3>products</h3>
+        <a>
+          <Link to="/admin/login">
+            <h3>admin</h3>
+          </Link>
+        </a>
         <h3>services</h3>
       </div>
       <div className="right">
@@ -37,7 +44,7 @@ const Navbar = () => {
           <Link to="/cart">
             <h3>cart</h3>
             <img src="/img/cart.png" />
-            <small>3</small>
+            <small>{quantity}</small>
           </Link>
         </a>
       </div>

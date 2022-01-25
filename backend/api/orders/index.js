@@ -4,16 +4,17 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const Orders = await Order.find();
-    res.status(200).json(Orders);
+    const orders = await Order.find();
+    res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 router.post("/", async (req, res) => {
   try {
-    const Order = await Order.create(req.body);
-    res.status(201).json(Order);
+    const order = await Order.create(req.body);
+    console.log("order", order);
+    res.status(201).json(order);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -33,7 +34,9 @@ router.get("/:id", async (req, res) => {
 //update Order info
 router.put("/:id", async (req, res) => {
   try {
-    const update = await Order.updateOne(req.body);
+    const update = await Order.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     res.json(update);
   } catch (error) {
     console.log(error);
@@ -44,10 +47,10 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
   Order.findByIdAndDelete(id)
-    .then((Order) => {
-      if (!Order) {
+    .then((order) => {
+      if (!order) {
         res.status(405).send({
-          message: `cannot delete Order with ID ${id}, Order not found!!!`,
+          message: `cannot delete order with ID ${id}, order not found!!!`,
         });
       } else {
         return res.send("deleted");

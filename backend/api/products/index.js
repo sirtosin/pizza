@@ -1,6 +1,35 @@
 const Product = require("../../Models/Product");
 const express = require("express");
+const multer = require("multer");
 const router = express.Router();
+
+const DIR = "./public";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname.toLowerCase().split(" ").join("-");
+    cb(null, fileName);
+  },
+});
+
+var upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+});
 
 router.get("/", async (req, res) => {
   try {
@@ -10,9 +39,18 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.post("/", async (req, res) => {
+router.post("/", upload.single("image"), async (req, res) => {
   try {
-    const product = await Product.create(req.body);
+    const url = req.protocol + "://" + req.get("host");
+    const product = new Product({
+      title: req.body.title,
+      image: url + "/public/" + req.file.filename,
+      price: req.body.price,
+      description: req.body.description,
+      sauce: req.body.sauce,
+    });
+    await product.save();
+    console.log(req.file);
     res.status(201).json(product);
   } catch (err) {
     res.status(500).json(err);
@@ -56,30 +94,3 @@ router.delete("/:id", (req, res) => {
     .catch((err) => res.send(err.message));
 });
 module.exports = router;
-
-// export default async function handler(req, res) {
-//   const { method, cookies } = req;
-
-//   const token = cookies.token;
-
-//   if (method === "GET") {
-//     try {
-//       const products = await Product.find();
-//       res.status(200).json(products);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   }
-
-//   if (method === "POST") {
-//     if (!token || token !== process.env.token) {
-//       return res.status(401).json("Not authenticated!");
-//     }
-//     try {
-//       const product = await Product.create(req.body);
-//       res.status(201).json(product);
-//     } catch (err) {
-//       res.status(500).json(err);
-//     }
-//   }
-// }

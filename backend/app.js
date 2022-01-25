@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
-
 // DB Config
 const db = require("./config").MONGOURI;
 
@@ -19,9 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 //Routes
-app.use("/", require("./api/products/index.js"));
-// app.use("/order", require("./api/orders/index.js"));
 
-const PORT = process.env.PORT || 2000;
+app.use("/api/v1/product", require("./api/products/index.js"));
+app.use("/api/v1/order", require("./api/orders/index.js"));
+app.use("/user", require("./api/login"));
+
+const PORT = process.env.PORT || 7000;
 
 app.listen(PORT, console.log(`Server running on  ${PORT}`));

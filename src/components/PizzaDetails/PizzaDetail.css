@@ -4,11 +4,14 @@
   justify-content: space-evenly;
   padding: 2em;
   text-transform: capitalize;
+
+  height: calc(100vh - 100px);
 }
 
 .pizzadetail__container img {
   width: 300px;
   height: 300px;
+  border-radius: 50%;
 }
 .pizzadetail__container aside button {
   border: 1px solid orangered;
@@ -20,4 +23,121 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.imgContainer {
+  width: 80%;
+  height: 80%;
+  position: relative;
+}
+
+.price {
+  color: #d1411e;
+  font-size: 24px;
+  font-weight: 400;
+  border-bottom: 1px solid #d1411e;
+}
+
+.sizes {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sizes .size {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+  margin: 0.72em;
+}
+
+.sizes .size .number {
+  position: absolute;
+  top: -5px;
+  right: -20px;
+  background-color: teal;
+  color: white;
+  font-size: 12px;
+  padding: 0 5px;
+  border-radius: 10px;
+}
+
+.ingredients {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.quantity {
+  width: 50px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1em;
+  margin-left: 3em;
+  margin-bottom: 4px;
+}
+
+.quantity input {
+  width: 40px;
+  padding: 0.21em;
+}
+.extra {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: -2em;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    height: auto;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .imgContainer {
+    width: 70vw;
+    height: 70vw;
+  }
+
+  .title {
+    margin: 5px;
+  }
+
+  .sizes {
+    width: 100%;
+    padding: 0px 20px;
+  }
+
+  .ingredients {
+    flex-direction: column;
+  }
+
+  .option {
+    margin: 10px;
+    font-size: 18px;
+  }
+
+  .checkbox {
+    width: 25px;
+    height: 25px;
+  }
+
+  .quantity,
+  .button {
+    height: 50px;
+    padding: 10px 20px;
+  }
 }

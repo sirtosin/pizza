@@ -28,6 +28,25 @@
 }
 
 .error {
-  font-size: 13px;
+  font-size: 23px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: 3em;
+  left: 40%;
   color: red;
+}
+
+.login_auth {
+  text-align: center;
+  font-weight: bold;
+}
+.login_auth button {
+  background-color: teal;
+  color: white;
+  border-radius: 1.3rem;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
