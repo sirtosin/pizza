@@ -19,34 +19,32 @@ const Navbar = () => {
         </span>
       </div>
       <div className="middle">
-        <h1
-          style={{
-            fontStyle: "italic",
-            fontFamily: "fantasy",
-          }}
-        >
-          d'lorenzo
-        </h1>
-        <a>
+        <>
           <Link to="/">
-            <h3>home</h3>
+            <h3
+              style={{
+                fontStyle: "italic",
+                fontFamily: "fantasy",
+              }}
+            >
+              d'lorenzo
+            </h3>
           </Link>
-        </a>
-        <a>
+        </>
+        <>
           <Link to="/admin/login">
             <h3>admin</h3>
           </Link>
-        </a>
-        <h3>services</h3>
+        </>
       </div>
       <div className="right">
-        <a>
+        <>
           <Link to="/cart">
             <h3>cart</h3>
             <img src="/img/cart.png" />
             <small>{quantity}</small>
           </Link>
-        </a>
+        </>
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ const Order = () => {
                 <span className="name"> {order.customer}</span>
               </td>
               <td>
-                <span className="name"> {order.phone}</span>
+                <span className="phone"> {order.phone}</span>
               </td>
               <td>
                 <span className="address">{order.address}</span>

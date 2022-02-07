@@ -4,8 +4,6 @@
   justify-content: space-evenly;
   padding: 2em;
   text-transform: capitalize;
-
-  height: calc(100vh - 100px);
 }
 
 .pizzadetail__container img {
@@ -14,10 +12,11 @@
   border-radius: 50%;
 }
 .pizzadetail__container aside button {
-  border: 1px solid orangered;
   padding: 1em 2em;
+  border: none;
+  outline: none;
   color: white;
-  background: orangered;
+  background: tomato;
   border-radius: 1.75em;
   display: flex;
   align-items: center;
@@ -25,29 +24,18 @@
   cursor: pointer;
 }
 
-.imgContainer {
-  width: 80%;
-  height: 80%;
-  position: relative;
-}
-
-.price {
-  color: #d1411e;
-  font-size: 24px;
-  font-weight: 400;
-  border-bottom: 1px solid #d1411e;
-}
-
 .sizes {
-  width: 40%;
+  width: 70%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: -1.4em;
 }
 
 .sizes .size {
-  width: 30px;
-  height: 30px;
+  overflow: hidden;
+  width: 100px;
+  height: 70px;
   position: relative;
   cursor: pointer;
   margin: 0.72em;
@@ -55,8 +43,7 @@
 
 .sizes .size .number {
   position: absolute;
-  top: -5px;
-  right: -20px;
+  right: 7px;
   background-color: teal;
   color: white;
   font-size: 12px;
@@ -64,80 +51,78 @@
   border-radius: 10px;
 }
 
-.ingredients {
-  display: flex;
-  margin-bottom: 30px;
-}
-
-.option {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
 .quantity {
-  width: 50px;
+  width: 100%;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: -1em;
-  margin-left: 3em;
+  margin-left: -7em;
   margin-bottom: 4px;
 }
 
 .quantity input {
-  width: 40px;
-  padding: 0.21em;
+  width: 50px;
+  padding: 0.31em;
 }
-.extra {
+.extras {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: -2em;
+  margin-top: 1em;
+  margin-left: -4em;
+  margin-bottom: 1.4em;
 }
 
 @media screen and (max-width: 480px) {
-  .container {
-    height: auto;
-    text-align: center;
+  .pizzadetail__container {
+    display: flex;
     flex-direction: column;
-    margin-top: 20px;
-  }
-
-  .imgContainer {
-    width: 70vw;
-    height: 70vw;
-  }
-
-  .title {
-    margin: 5px;
+    text-align: center;
+    overflow: hidden;
+    align-items: center;
   }
 
   .sizes {
     width: 100%;
-    padding: 0px 20px;
+    padding: 0px 10px;
   }
-
-  .ingredients {
-    flex-direction: column;
+  .extras {
+    position: relative;
+    left: 3em;
   }
-
-  .option {
-    margin: 10px;
-    font-size: 18px;
+  .quantity {
+    position: relative;
+    left: 3em;
   }
-
-  .checkbox {
-    width: 25px;
-    height: 25px;
+  .quantity::before {
+    content: "Quantity: ";
+    display: none;
+    font-weight: 500;
   }
+  button {
+    position: relative;
+    margin: auto;
+    margin-bottom: 2em;
+    top: 0.5em;
+  }
+}
 
-  .quantity,
-  .button {
-    height: 50px;
-    padding: 10px 20px;
+@media (max-width: 768px) {
+  .pizzadetail__container,
+  h1,
+  h3,
+  h4 {
+    font-size: 17px;
+  }
+  .pizzadetail__container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  .extras {
+    margin-left: -8.3em;
+    margin-bottom: 1em;
   }
 }

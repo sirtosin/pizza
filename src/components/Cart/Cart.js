@@ -13,8 +13,8 @@ const Cart = () => {
   const [cash, setCash] = useState(false);
   const myproduct = useSelector((state) => state.cart.products);
   const mytotal = useSelector((state) => state.cart.total);
+
   const navigate = useNavigate();
-  console.log("cart", myproduct);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -50,15 +50,18 @@ const Cart = () => {
     onClose: handlePaystackCloseAction,
   };
   useEffect(() => {
-    if (myproduct === 0) {
+    if (myproduct.length === 0) {
       setIsLoading(true);
-      setError(true);
       setIsLoading(false);
     } else {
       setIsLoading(false);
       setError(false);
     }
   }, [myproduct]);
+  console.log(
+    "cart",
+    myproduct.map((product) => product.quantity)
+  );
 
   const handleRemove = (id) => {
     dispatch(removeCartProduct(id));
@@ -73,39 +76,31 @@ const Cart = () => {
               <th>Name</th>
               <th>Extras</th>
               <th>Price</th>
-              <th>Quantity</th>
+              <th>Qty</th>
               <th>Total</th>
             </tr>
           </tbody>
-          {isLoading && <h1>loading...</h1>}
-          {error && <h1>oops!!! error occured</h1>}
+          {isLoading && "loading..."}
+          {error && "oops!!! error occured"}
           {myproduct && myproduct.length === 0 ? (
-            <p>There are no products in cart</p>
+            <>There are no products in cart</>
           ) : (
             <tbody>
               {myproduct.length > 0 &&
                 myproduct.map((product) => (
                   <tr className="cart__tr" key={product._id}>
-                    <td>
+                    <td className="image">
                       <div className="imgContainer">
-                        <img src={product.img} alt="" />
+                        <img src={product.image} alt="" />
                       </div>
                     </td>
-                    <td>
-                      <span className="name">{product.title} </span>
-                    </td>
-                    <td>
-                      <span className="extras">
-                        {myproduct &&
-                          product.extraOptions.map((option) => (
-                            <span>{option.text},</span>
-                          ))}
-                      </span>
-                    </td>
-                    <td>
+                    <td className="title">{product.title}</td>
+                    <td className="extra">{product.sauce}</td>
+
+                    <td className="price">
                       <CurrencyFormat
                         renderText={(value) => (
-                          <span className="price"> {value}</span>
+                          <span className="cart_price"> {value}</span>
                         )}
                         decimalScale={2}
                         value={product.price}
@@ -114,26 +109,32 @@ const Cart = () => {
                         prefix={"N"}
                       />
                     </td>
-                    <td>
-                      <span className="quantity">{product.quantity} </span>
-                    </td>
-                    <td>
-                      <span className="total">
-                        {product.price * product.quantity}
-                      </span>
+
+                    <td className="qty">{product.quantity}</td>
+                    <td className="total">
+                      <CurrencyFormat
+                        renderText={(value) => (
+                          <span className="cart_price"> {value}</span>
+                        )}
+                        decimalScale={2}
+                        value={product.price * product.quantity}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        prefix={"N"}
+                      />
                     </td>
                     <button
                       className="clearcart"
                       onClick={() => handleRemove(product._id)}
                     >
-                      remove
+                      X
                     </button>
                   </tr>
                 ))}
             </tbody>
           )}
         </table>
-        <button className="clearcart" onClick={() => dispatch(reset())}>
+        <button className="clearcart2" onClick={() => dispatch(reset())}>
           clear cart
         </button>
       </div>

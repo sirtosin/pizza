@@ -6,24 +6,137 @@
   width: 100%;
   background: rgb(70, 69, 68);
   color: #fff;
+  position: relative;
   margin-top: 2em;
 }
 
-.extra {
-  flex-basis: 40%;
+.footer__container .extra {
+  flex-basis: 30%;
   text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
 }
 .extra img {
   width: 500px;
   height: 400px;
 }
-.footer__contact {
-  flex-basis: 60%;
+
+.footer__container .work__hours h2 {
+  text-transform: capitalize;
+  color: goldenrod;
 }
 
+.footer__container .work__hours {
+  flex-basis: 30%;
+  margin: 2em;
+  position: relative;
+  top: -6em;
+}
+
+.footer__container .footer__contact {
+  flex-basis: 30%;
+  position: relative;
+  margin-left: -7em;
+  top: -3.8em;
+}
+.footer__container .footer__contact h1 {
+  color: goldenrod;
+  text-transform: capitalize;
+}
 .footer__contact h1,
 h3,
 h4,
 address {
-  font-size: 24px;
+  font-size: 22px;
+}
+
+@media (max-width: 480px) {
+  .footer__container {
+    height: 400px;
+  }
+  .footer__container .extra {
+    display: none;
+  }
+
+  .footer__container .work__hours {
+    margin-left: 2em;
+    margin-top: 2em;
+  }
+  .footer__container .work__hours h4 {
+    font-weight: 500;
+    font-size: 17px !important;
+  }
+
+  .footer__container .work__hours {
+    margin-left: 1em !important;
+    margin-top: 6em !important;
+  }
+
+  .footer__container .footer__contact h4,
+  .footer__container .footer__contact address {
+    font-size: 17px !important;
+    font-weight: 500;
+  }
+  .footer__container .footer__contact {
+    margin-top: 7em;
+    margin-left: 1.6em;
+  }
+}
+/* 
+@media (max-width: 600px) {
+  .footer__container {
+    height: 400px;
+  }
+  .footer__container .extra {
+    display: none;
+  }
+
+  .footer__container .work__hours h4 {
+    font-weight: 500;
+    font-size: 17px;
+  }
+
+  .footer__container .work__hours {
+    margin-left: -2em;
+    margin-top: 0em;
+  }
+
+  .footer__container .footer__contact h4,
+  .footer__container .footer__contact address {
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .footer__container .footer__contact {
+    margin-top: 4em;
+    margin-left: 1.6em;
+  }
+} */
+@media (max-width: 768px) {
+  .footer__container {
+    height: 400px;
+  }
+  .footer__container .extra {
+    display: none;
+  }
+
+  .footer__container .work__hours h4 {
+    font-weight: 600;
+    font-size: 22px;
+  }
+
+  .footer__container .work__hours {
+    margin-left: -2em;
+    margin-top: 4em;
+  }
+
+  .footer__container .footer__contact h4,
+  .footer__container .footer__contact address {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .footer__container .footer__contact {
+    margin-top: 8em;
+    margin-left: 1.6em;
+  }
 }

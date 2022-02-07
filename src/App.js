@@ -14,6 +14,7 @@ import { fetchAsyncProduct } from "./components/redux/productSlice";
 import { getCartProduct, reset } from "./components/redux/cartSlice";
 import { login, resetUser } from "./components/redux/userSlice";
 import { fetchAsyncOrder } from "./components/redux/orderSlice";
+import Edit from "./components/PizzaMenu/Edit";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,6 +39,7 @@ function App() {
           <Route path="admin" element={<Admin />} />
           <Route path="admin/login" element={<Login />} />
           <Route path="order/:id" element={<Order />} />
+          <Route path="admin/edit/:id" element={<Edit />} />
         </Routes>
         <Footer />
       </BrowserRouter>

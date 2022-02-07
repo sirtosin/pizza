@@ -14,26 +14,39 @@ const Cash = ({ mytotal }) => {
   const [close, setClose] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await axios
-      .post("http://localhost:7000/api/v1/order", {
-        customer,
-        address,
-        phone,
-        method,
-        total,
-        status,
-      })
-      .then((res) => {
-        console.log(res);
-        dispatch(reset());
-        setClose(true);
-        navigate(`/order/${res.data._id}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const sure = async () => {
+      const ask = prompt("are you satisfied? ");
+      switch (ask) {
+        case "yes":
+          console.log("submitted");
+          await axios
+            .post("http://localhost:7000/api/v1/order", {
+              customer,
+              address,
+              phone,
+              method,
+              total,
+              status,
+            })
+            .then((res) => {
+              console.log(res);
+              dispatch(reset());
+              setClose(true);
+              alert("Order Placed");
+              navigate(`/order/${res.data._id}`);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          break;
+        case "no":
+          break;
+        // default
+      }
+    };
+    sure();
   };
   const closeModal = () => {
     console.log("close");
@@ -61,35 +74,36 @@ const Cash = ({ mytotal }) => {
                 className="input"
                 onChange={(e) => setCustomer(e.target.value)}
               />
+
+              <div className="cash__item">
+                <label className="cash__label">Phone Number</label>
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="+234 81 567 89 443"
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="cash__input"
+                />
+              </div>
+              <div className="cash__item">
+                <label className="cash__label">Address</label>
+                <textarea
+                  rows={5}
+                  placeholder="Elton St. 505 NY"
+                  type="text"
+                  name="address"
+                  className="textarea"
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+              <button
+                disabled={address === "" || customer === "" || phone === ""}
+                className="cash__button"
+                onClick={handleSubmit}
+              >
+                Order
+              </button>
             </form>
-            <div className="cash__item">
-              <label className="cash__label">Phone Number</label>
-              <input
-                type="text"
-                name="phone"
-                placeholder="+234 81 567 89 443"
-                onChange={(e) => setPhone(e.target.value)}
-                className="cash__input"
-              />
-            </div>
-            <div className="cash__item">
-              <label className="cash__label">Address</label>
-              <textarea
-                rows={5}
-                placeholder="Elton St. 505 NY"
-                type="text"
-                name="address"
-                className="textarea"
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </div>
-            <button
-              disabled={address === "" || customer === "" || phone === ""}
-              className="cash__button"
-              onClick={handleSubmit}
-            >
-              Order
-            </button>
           </div>
         </div>
       ) : (

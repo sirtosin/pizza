@@ -19,6 +19,7 @@
 
 .login__button {
   height: 40px;
+  width: 100%;
   margin-bottom: 20px;
   border: none;
   background-color: teal;
@@ -47,6 +48,22 @@
   border-radius: 1.3rem;
   outline: none;
   border: none;
+  margin-top: 4em;
+  margin-bottom: 6em;
   padding: 0.5rem 1rem;
   cursor: pointer;
+}
+
+.login__text {
+  position: relative;
+  top: 2em;
+}
+
+@media (max-width: 768px) {
+  .login__container {
+    height: 300px;
+    width: 100%;
+    background: #000;
+    margin-bottom: 2em;
+  }
 }

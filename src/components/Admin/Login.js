@@ -1,77 +1,53 @@
-import axios from "axios";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { register, login, changePassword } from "../redux/userSlice";
+import { register, login } from "../redux/userSlice";
 import "./Login.css";
+import { useRef, useState } from "react";
 
+import { signup, mylogin, logout, useAuth } from "../firebase";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [newpassword, setNewPassword] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.users);
 
-  const signupHandleSubmit = async (e) => {
-    e.preventDefault();
-    await axios
-      .post("http://localhost:7000/user/signup", { username, password })
-      .then((res) => {
-        console.log(res);
-        if (res.status !== 200) {
-          setError(true);
-        }
-      })
-      .catch((err) => {
-        setError(true);
-        throw new Error(error);
-      });
+  const [loading, setLoading] = useState(false);
+  const currentUser = useAuth();
 
-    dispatch(register({ username, password }));
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
-    navigate("/admin");
-  };
-  const loginHandleSubmit = async (e) => {
-    e.preventDefault();
-    await axios
-      .post("http://localhost:7000/user/signin", { username, password })
-      .then((res) => {
-        console.log(res.data);
-        localStorage.setItem("token", JSON.stringify(res.data.data));
-      })
-      .catch((err) => console.log(err));
-    dispatch(login({ username, password }));
+  async function handleSignup() {
+    setLoading(true);
+    try {
+      await signup(emailRef.current.value, passwordRef.current.value);
+      dispatch(register({ username, password }));
+    } catch {
+      alert("Error!");
+    }
+    setLoading(false);
+  }
 
-    navigate("/admin");
-  };
-  const changePasswordHandleSubmit = async (e) => {
-    e.preventDefault();
-    await axios
-      .post("http://localhost:7000/user/changepassword", {
-        username,
-        newpassword,
-        token: JSON.parse(localStorage.getItem("token")),
-      })
-      .then((res) => {
-        console.log(res.data);
-        localStorage.getItem("token");
-      })
-
-      .catch((err) => console.log(err));
-    dispatch(changePassword({ username, password }));
-
-    navigate("/admin");
-  };
+  async function handleLogin() {
+    setLoading(true);
+    try {
+      await mylogin(emailRef.current.value, passwordRef.current.value);
+      dispatch(login({ username, password }));
+    } catch {
+      alert("Error!");
+    }
+    setLoading(false);
+  }
 
   return (
     <>
       {user ? (
         <div className="login_auth">
-          <h3>you are logged in as, {user.username}</h3>
+          <h3 className="login__text">you are logged in as, {user.username}</h3>
           <Link to="/admin">
             <button>proceed to dashboard</button>
           </Link>
@@ -87,6 +63,7 @@ const Login = () => {
                 name="username"
                 className="input"
                 onChange={(e) => setUsername(e.target.value)}
+                ref={emailRef}
               />
               <input
                 placeholder="password"
@@ -94,26 +71,14 @@ const Login = () => {
                 name="password"
                 className="input"
                 onChange={(e) => setPassword(e.target.value)}
+                ref={passwordRef}
               />
-              <input
-                style={{ display: "none" }}
-                placeholder="password"
-                type="password"
-                name="newpassword"
-                className="input"
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-              <button className="login__button" onClick={signupHandleSubmit}>
+
+              <button className="login__button" onClick={handleSignup}>
                 Sign Up
               </button>
-              <button className="login__button" onClick={loginHandleSubmit}>
+              <button className="login__button" onClick={handleLogin}>
                 Login
-              </button>
-              <button
-                className="login__button"
-                onClick={changePasswordHandleSubmit}
-              >
-                change Password
               </button>
             </div>
           </div>

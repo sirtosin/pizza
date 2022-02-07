@@ -26,10 +26,6 @@ const userSlice = createSlice({
       state.users = payload;
       localStorage.setItem("user", JSON.stringify(payload));
     },
-    changePassword: (state, { payload }) => {
-      state.users = payload;
-      localStorage.setItem("user", JSON.stringify(payload));
-    },
 
     resetUser: (state) => {
       state.users = "";

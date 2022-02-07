@@ -1,35 +1,7 @@
-const Product = require("../../Models/Product");
 const express = require("express");
-const multer = require("multer");
+const Product = require("../../Models/Product");
 const router = express.Router();
-
-const DIR = "./public";
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, DIR);
-  },
-  filename: (req, file, cb) => {
-    const fileName = file.originalname.toLowerCase().split(" ").join("-");
-    cb(null, fileName);
-  },
-});
-
-var upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype == "image/png" ||
-      file.mimetype == "image/jpg" ||
-      file.mimetype == "image/jpeg"
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-    }
-  },
-});
+const { cloudinary } = require("../../utils/cloudinary");
 
 router.get("/", async (req, res) => {
   try {
@@ -39,18 +11,24 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.post("/", upload.single("image"), async (req, res) => {
+
+router.post("/", async (req, res) => {
   try {
-    const url = req.protocol + "://" + req.get("host");
+    const fileStr = req.body.image;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "ub5r39y6",
+    });
+
     const product = new Product({
       title: req.body.title,
-      image: url + "/public/" + req.file.filename,
+      image: uploadResponse.secure_url,
       price: req.body.price,
       description: req.body.description,
       sauce: req.body.sauce,
     });
     await product.save();
-    console.log(req.file);
+
+    console.log("image", product.image);
     res.status(201).json(product);
   } catch (err) {
     res.status(500).json(err);
@@ -71,7 +49,24 @@ router.get("/:id", async (req, res) => {
 //update product info
 router.put("/:id", async (req, res) => {
   try {
-    const update = await Product.updateOne(req.body);
+    const fileStr = req.body.image;
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "ub5r39y6",
+    });
+    const id = req.params.id;
+
+    const updateProduct = {
+      title: req.body.title,
+      image: uploadResponse.secure_url,
+      price: req.body.price,
+      description: req.body.description,
+      sauce: req.body.sauce,
+    };
+    const update = await Product.findByIdAndUpdate(
+      id,
+      { $set: updateProduct },
+      { new: true }
+    );
     res.json(update);
   } catch (error) {
     console.log(error);
@@ -93,4 +88,31 @@ router.delete("/:id", (req, res) => {
     })
     .catch((err) => res.send(err.message));
 });
+
+router.get("/cloud", async (req, res) => {
+  const { resources } = await cloudinary.search
+    .expression("folder:ub5r39y6")
+    .sort_by("public_id", "desc")
+    .max_results(30)
+    .execute();
+
+  const publicIds = resources.map((file) => file.public_id);
+  res.send(publicIds);
+});
+
+router.post("/cloud", async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    console.log(req.body);
+    const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "ub5r39y6",
+    });
+    console.log(uploadResponse);
+    res.json({ msg: "File uploaded sucessfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ err: "Something went wrong" });
+  }
+});
+
 module.exports = router;

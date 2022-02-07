@@ -45,13 +45,6 @@ const productSlice = createSlice({
       state.product = newProduct;
       localStorage.setItem("product", JSON.stringify(newProduct));
     },
-    update: async (id, { payload }) => {
-      const response = await axios.put(
-        `http://localhost:7000/api/v1/product/${id}`,
-        payload
-      );
-      return response.data;
-    },
   },
   extraReducers: {
     [fetchAsyncProduct.pending]: () => {

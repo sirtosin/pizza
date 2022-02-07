@@ -1,37 +1,60 @@
-import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import "./Admin.css";
 import { useNavigate } from "react-router";
 import { resetUser } from "../redux/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CurrencyFormat from "react-currency-format";
 import Add from "../PizzaMenu/Add";
-import { remove } from "../redux/productSlice";
+import axios from "axios";
+import { fetchAsyncProduct } from "../redux/productSlice";
+import { Link } from "react-router-dom";
 
 const Admin = () => {
   const user = useSelector((state) => state.user.users);
   const myproduct = useSelector((state) => state.product.product);
   const orders = useSelector((state) => state.order.order);
+  const [pizza, setPizza] = useState([]);
+  const [pizzaOrder, setPizzaOrder] = useState([]);
   const [add, setAdd] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
   useEffect(() => {
+    setIsLoading(true);
     if (myproduct) {
       setIsLoading(false);
       setError(false);
+      setPizza(myproduct);
     } else {
-      setIsLoading(true);
       setError(true);
     }
-  }, [myproduct]);
+  }, []);
+  useEffect(() => {
+    setIsLoading(true);
+    if (orders) {
+      setIsLoading(false);
+      setError(false);
+      setPizzaOrder(orders);
+    } else {
+      setError(true);
+    }
+  }, []);
   const addProduct = () => {
     setAdd(true);
     console.log("add");
   };
-  const removeProduct = (id) => {
-    dispatch(remove(id));
+  const removeProduct = async (id) => {
+    try {
+      const res = await axios.delete(
+        "http://localhost:7000/api/v1/product/" + id
+      );
+      console.log(res);
+      setPizza(pizza.filter((pizza) => pizza._id !== id));
+      dispatch(fetchAsyncProduct());
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -51,13 +74,13 @@ const Admin = () => {
             </button>
           </div>
           <div className="admin__container">
-            <div className="item">
-              <h1 className="title">Products</h1>
-              <table className="table">
+            <div className="admin__item">
+              <h1 className="admin__title">Products</h1>
+              <table className="admin__table">
                 <tbody>
-                  <tr className="trTitle">
+                  <tr className="admin__trTitle">
                     <th>Image</th>
-                    <th>Id</th>
+                    <th className="admin__id">Id</th>
                     <th>Title</th>
                     <th>Price</th>
                     <th>Action</th>
@@ -65,30 +88,34 @@ const Admin = () => {
                 </tbody>
                 {isLoading && <h1>loading...</h1>}
                 {error && <h1>oops!!! error occured</h1>}
-                {myproduct && myproduct.length === 0 ? (
-                  <p>There are no products here</p>
+                {pizza && pizza.length === 0 ? (
+                  <>There are no products here</>
                 ) : (
                   <tbody>
-                    {myproduct.length > 0 &&
-                      myproduct.map((product) => (
-                        <tr className="trTitle" key={product._id}>
+                    {pizza.length > 0 &&
+                      pizza.map((product) => (
+                        <tr className="admin__trTitle" key={product._id}>
                           <td>
-                            <img src={product.img} alt="" />
+                            <img src={product.image} alt="" />
                           </td>
-                          <td>{product._id.slice(0, 5)}...</td>
+                          <td className="admin__id">
+                            {product._id.slice(0, 5)}...
+                          </td>
                           <td>{product.title}</td>
                           <td>
                             <CurrencyFormat
                               renderText={(value) => <> {value}</>}
                               decimalScale={2}
-                              value={product.prices}
+                              value={product.price}
                               displayType={"text"}
                               thousandSeparator={true}
                               prefix={"N"}
                             />
                           </td>
                           <td>
-                            <button className="admin__button">Edit</button>
+                            <a className="admin__button">
+                              <Link to={`edit/${product._id}`}> Edit</Link>
+                            </a>
                             <button
                               className="admin__button"
                               onClick={() => removeProduct(product._id)}
@@ -102,12 +129,12 @@ const Admin = () => {
                 )}
               </table>
             </div>
-            <div className="item">
-              <h1 className="title">Orders</h1>
-              <table className="table">
+            <div className="admin__item">
+              <h1 className="admin__title">Orders</h1>
+              <table className="admin__table">
                 <tbody>
-                  <tr className="trTitle">
-                    <th>Id</th>
+                  <tr className="admin__trTitle">
+                    <th className="admin__id">Id</th>
                     <th>Customer</th>
                     <th>Total</th>
                     <th>Payment</th>
@@ -117,14 +144,16 @@ const Admin = () => {
                 </tbody>
                 {isLoading && <h1>loading...</h1>}
                 {error && <h1>oops!!! error occured</h1>}
-                {orders.length === 0 ? (
-                  <p>There are no orders</p>
+                {pizzaOrder.length === 0 ? (
+                  <p>There are no pizzaOrder</p>
                 ) : (
                   <tbody>
-                    {orders.length > 0 &&
-                      orders.map((order) => (
-                        <tr className="trTitle" key={order._id}>
-                          <td>{order._id.slice(0, 5)}...</td>
+                    {pizzaOrder.length > 0 &&
+                      pizzaOrder.map((order) => (
+                        <tr className="admin__trTitle" key={order._id}>
+                          <td className="admin__id">
+                            {order._id.slice(0, 5)}...
+                          </td>
                           <td>{order.customer}</td>
                           <td>
                             <CurrencyFormat

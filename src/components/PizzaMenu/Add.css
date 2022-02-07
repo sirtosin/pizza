@@ -26,10 +26,16 @@
   font-weight: 300;
 }
 
+.add__item .loading {
+  text-align: center;
+  font-weight: bold;
+}
 .add__item {
   display: flex;
   flex-direction: column;
   width: 100%;
+  color: teal;
+  text-align: left;
   margin-bottom: 15px;
 }
 
@@ -39,6 +45,10 @@
 
 .add__input {
   height: 40px;
+}
+
+textarea {
+  resize: none;
 }
 
 .add__button {
@@ -54,15 +64,44 @@
 
 .add__wrapper .add__close {
   position: relative;
-  top: 3em;
-  left: 17em;
+  top: 0em;
+  left: 15em;
   cursor: pointer;
   border: none;
-  background-color: teal;
+  background-color: rgb(247, 54, 20);
   color: white;
-  border-radius: 35%;
+  border-radius: 45%;
   padding: 0.3em;
   outline-width: none;
-
   font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .add__container {
+    width: 100%;
+    height: 95vh;
+    position: fixed;
+    top: 1em;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(197, 197, 197, 0.568);
+  }
+  .add__wrapper .add__close {
+    left: 10em;
+    top: 1.5em;
+  }
+  /* .add__wrapper {
+    position: relative;
+    top: 1em;
+    height: 600px;
+    overflow: hidden;
+  } */
+}
+@media (max-width: 768px) {
+  .add__wrapper {
+    position: relative;
+    top: 1em;
+    height: 600px;
+    overflow: hidden;
+  }
 }

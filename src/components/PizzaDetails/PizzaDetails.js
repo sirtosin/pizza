@@ -18,12 +18,14 @@ const PizzaDetails = () => {
   console.log("myproductDetail", myproduct);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [price, setPrice] = useState(myproduct.prices);
-  const [extras, setExtras] = useState([]);
+  const [price, setPrice] = useState(myproduct.price);
+  const [show, setShow] = useState(true);
+
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
+    setIsLoading(true);
+
     if (myproduct === 0) {
-      setIsLoading(true);
       setError(true);
       setIsLoading(false);
     } else {
@@ -34,24 +36,25 @@ const PizzaDetails = () => {
 
   const handleSize = (sizeIndex) => {
     if (sizeIndex === 0) {
-      setPrice(myproduct.prices);
+      setPrice(myproduct.price);
       console.log("price", price);
     }
     if (sizeIndex === 1) {
-      setPrice(myproduct.prices + 500);
+      setPrice(myproduct.price + 500);
       console.log("price", price);
     }
     if (sizeIndex === 2) {
-      setPrice(myproduct.prices + 1000);
+      setPrice(myproduct.price + 1000);
       console.log("price", price);
     }
+    setShow(false);
   };
 
   const handleClick = () => {
     if (mycart.find((item) => item._id === id)) {
       alert("Product already added to cart");
     } else {
-      dispatch(addProduct({ ...myproduct, extras, price, quantity }));
+      dispatch(addProduct({ ...myproduct, price, quantity }));
       alert("Added to cart");
     }
   };
@@ -63,7 +66,7 @@ const PizzaDetails = () => {
 
       {myproduct ? (
         <div className="pizzadetail__container" key={myproduct._id}>
-          <img src={myproduct.img} />
+          <img src={myproduct.image} />
           <aside>
             <h1>{myproduct.title}</h1>
 
@@ -98,29 +101,13 @@ const PizzaDetails = () => {
 
             <h3>
               price:
-              {price === undefined
-                ? "choose your size to see price"
-                : "N" +
-                  // (
-                  //   <CurrencyFormat
-                  //     renderText={(value) => <h3> {value}</h3>}
-                  //     decimalScale={2}
-                  //     value={price}
-                  //     displayType={"text"}
-                  //     thousandSeparator={true}
-                  //     prefix={"N"}
-                  //   />
-                  // )
-                  price}
+              {show ? "choose your size to see price" : "N" + price}
             </h3>
-            <section className="extra">
-              <h4>Extra sauce Ingredients: </h4>
-              {myproduct.extraOptions &&
-                myproduct.extraOptions.map((option) => (
-                  <div key={option._id}>
-                    <h4>{option.text},</h4>
-                  </div>
-                ))}
+            <section className="extras">
+              <h4>
+                Extra sauce Ingredients:
+                {myproduct.sauce ? myproduct.sauce : "no extra sauce"}
+              </h4>
             </section>
 
             <div className="quantity">
@@ -134,7 +121,7 @@ const PizzaDetails = () => {
               />
             </div>
             <button
-              disabled={price === undefined || quantity === 0 ? true : false}
+              disabled={show || quantity === 0}
               onClick={() => handleClick()}
             >
               Add to cart

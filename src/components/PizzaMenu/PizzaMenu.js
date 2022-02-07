@@ -37,30 +37,30 @@ const PizzaMenu = () => {
         <aside className="underline"></aside>
       </div>
       <section className="pizza__menu__products">
-        {isLoading && <h1>loading...</h1>}
-        {error && <h1>oops!!! error occured</h1>}
         {myproduct.length === 0 ? (
           <p>There are no products</p>
         ) : (
           <a>
+            {!myproduct && isLoading && <h1>loading...</h1>}
+            {error && <h1>oops!!! error occured</h1>}
             {myproduct.length > 0 &&
               myproduct.map((product) => (
                 <aside key={product._id}>
                   <Link to={`/${product._id}`}>
                     <article>
-                      <img src={product.img} />
+                      <img src={product.image} />
                       <h4>{product.title}</h4>
                       <p>
                         <CurrencyFormat
                           renderText={(value) => <> {value}</>}
                           decimalScale={2}
-                          value={product.prices}
+                          value={product.price}
                           displayType={"text"}
                           thousandSeparator={true}
                           prefix={"N"}
                         />
                       </p>
-                      <p>{product.desc}</p>
+                      <p>{product.description}</p>
                     </article>
                   </Link>
                 </aside>

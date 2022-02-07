@@ -7,7 +7,13 @@ const Footer = () => {
         <h2>need an extra slice?</h2>
         <img src="https://static.toiimg.com/thumb/53110049.cms?width=1200&height=900" />
       </section>
-      <section className="footer__con tact">
+      <section className="work__hours">
+        <h2>work hours</h2>
+
+        <h4>Monday - Saturday:</h4>
+        <h4>09:00 am - 08:00pm</h4>
+      </section>
+      <section className="footer__contact">
         <h1> contact us </h1>
         <address>no 8, opebi road ikeja lagos</address>
         <h4>want to make a call to customer care, dial ( +234) 40680757</h4>
