@@ -67,7 +67,6 @@ const PizzaMenu = () => {
               ))}
           </a>
         )}
-        ;
       </section>
     </div>
   );
