@@ -7,8 +7,10 @@ import Cash from "../Orders/Cash";
 import { PaystackButton } from "react-paystack";
 import CurrencyFormat from "react-currency-format";
 import { useNavigate } from "react-router";
+import { SchemaTypes } from "mongoose";
 
 const Cart = () => {
+  const [delivery, setDelivery] = useState(false);
   const [open, setOpen] = useState(false);
   const [cash, setCash] = useState(false);
   const myproduct = useSelector((state) => state.cart.products);
@@ -62,6 +64,11 @@ const Cart = () => {
     "cart",
     myproduct.map((product) => product.quantity)
   );
+
+  const pay = () => {
+    setDelivery(false)
+    setCash(true)
+  };
 
   const handleRemove = (id) => {
     dispatch(removeCartProduct(id));
@@ -172,13 +179,21 @@ const Cart = () => {
           {open ? (
             <>
               <div className="paymentMethods">
-                <button className="payButton" onClick={() => setCash(true)}>
+                <button
+                  className="payButton"
+                  onClick={
+                  pay}
+                >
                   CASH ON DELIVERY
                 </button>
               </div>
 
               <div className="paymentMethods paystack">
-                <PaystackButton className="payButton" {...componentProps} />
+                <PaystackButton
+                  onClick={() => setOpen(false)}
+                  className="payButton"
+                  {...componentProps}
+                />
               </div>
             </>
           ) : (

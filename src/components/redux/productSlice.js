@@ -4,7 +4,9 @@ import axios from "axios";
 export const fetchAsyncProduct = createAsyncThunk(
   "product/fetchAsyncproduct",
   async () => {
-    const response = await axios.get(`http://localhost:7000/api/v1/product`);
+    const response = await axios.get(
+      `https://devpizza.herokuapp.com/api/v1/product`
+    );
     localStorage.setItem("product", JSON.stringify(response.data));
     return response.data;
   }
@@ -14,7 +16,7 @@ export const fetchAsyncProductDetail = createAsyncThunk(
   "product/fetchAsyncProductDetail",
   async (id) => {
     const response = await axios.get(
-      `http://localhost:7000/api/v1/product/${id}`
+      `https://devpizza.herokuapp.com/api/v1/product/${id}`
     );
     return response.data;
   }
@@ -32,7 +34,9 @@ const productSlice = createSlice({
   reducers: {
     remove: async (state, action) => {
       await axios
-        .delete(`http://localhost:7000/api/v1/product/${action.payload}`)
+        .delete(
+          `https://devpizza.herokuapp.com/api/v1/product/${action.payload}`
+        )
         .then((res) => {
           console.log(res);
         })

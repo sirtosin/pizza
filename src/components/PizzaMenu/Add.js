@@ -43,7 +43,7 @@ const Add = () => {
 
           console.log("image", image);
           await axios
-            .post("http://localhost:7000/api/v1/product", {
+            .post("https://devpizza.herokuapp.com/api/v1/product", {
               title,
               image,
               price,
@@ -75,7 +75,13 @@ const Add = () => {
     sure();
   };
   const closeModal = () => {
-    console.log("close");
+    const ask = prompt("are you sure? ");
+    switch (ask) {
+      case "yes":
+        break;
+      case "no":
+        break;
+    }
     setClose(true);
   };
 
@@ -158,9 +164,7 @@ const Add = () => {
             </form>
           </div>
         </div>
-      ) : (
-        navigate("/")
-      )}
+      ) : null}
     </>
   );
 };

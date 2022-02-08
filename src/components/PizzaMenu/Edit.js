@@ -59,7 +59,7 @@ const Edit = () => {
           setIsLoading(true);
 
           await axios
-            .put(`http://localhost:7000/api/v1/product/${id}`, {
+            .put(`https://devpizza.herokuapp.com/api/v1/product/${id}`, {
               title,
               image,
               price,

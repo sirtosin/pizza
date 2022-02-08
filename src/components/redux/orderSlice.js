@@ -4,7 +4,9 @@ import axios from "axios";
 export const fetchAsyncOrder = createAsyncThunk(
   "order/fetchAsyncOrder",
   async () => {
-    const response = await axios.get(`http://localhost:7000/api/v1/order`);
+    const response = await axios.get(
+      `https://devpizza.herokuapp.com/api/v1/order`
+    );
     return response.data;
   }
 );
@@ -13,7 +15,7 @@ export const fetchAsyncOrderDetail = createAsyncThunk(
   "order/fetchAsyncOrderDetail",
   async (id) => {
     const response = await axios.get(
-      `http://localhost:7000/api/v1/order/${id}`
+      `https://devpizza.herokuapp.com/api/v1/order/${id}`
     );
     return response.data;
   }

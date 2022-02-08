@@ -22,7 +22,7 @@ const Cash = ({ mytotal }) => {
         case "yes":
           console.log("submitted");
           await axios
-            .post("http://localhost:7000/api/v1/order", {
+            .post("https://devpizza.herokuapp.com/api/v1/order", {
               customer,
               address,
               phone,
@@ -49,7 +49,13 @@ const Cash = ({ mytotal }) => {
     sure();
   };
   const closeModal = () => {
-    console.log("close");
+    const ask = prompt("are you sure? ");
+    switch (ask) {
+      case "yes":
+        break;
+      case "no":
+        break;
+    }
     setClose(true);
   };
 
@@ -106,9 +112,7 @@ const Cash = ({ mytotal }) => {
             </form>
           </div>
         </div>
-      ) : (
-        navigate("/")
-      )}
+      ) : null}
     </>
   );
 };
