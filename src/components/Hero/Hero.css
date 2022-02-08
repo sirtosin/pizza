@@ -11,7 +11,7 @@
   object-fit: contain;
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .hero__container {
     height: 300px;
     margin-top: -2em;

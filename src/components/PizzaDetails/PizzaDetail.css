@@ -3,12 +3,14 @@
   align-items: center;
   justify-content: space-evenly;
   padding: 2em;
+  overflow: hidden;
   text-transform: capitalize;
 }
 
 .pizzadetail__container img {
   width: 300px;
   height: 300px;
+  object-fit: cover;
   border-radius: 50%;
 }
 .pizzadetail__container aside button {

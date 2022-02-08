@@ -9,6 +9,7 @@
 .login__wrapper {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .input {
@@ -59,7 +60,7 @@
   top: 2em;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .login__container {
     height: 300px;
     width: 100%;

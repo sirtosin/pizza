@@ -50,15 +50,35 @@ h4,
 address {
   font-size: 22px;
 }
-
-@media (max-width: 375px) {
+@media screen and (-webkit-min-device-pixel-ratio: 2.75) {
+  /* CSS */
   .footer__container .work__hours {
     left: -4.6em !important;
     top: 0em !important;
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 375px) {
+  .footer__container .work__hours {
+    left: -4.6em !important;
+    top: 0em !important;
+  }
+}
+@media screen and (max-width: 425px) {
+  .footer__container .work__hours {
+    left: -5.6em !important;
+  }
+  .footer__container .footer__contact {
+    top: -8em !important;
+    left: 1em !important;
+    margin: 0.4em;
+    padding: 1.2em;
+    overflow: hidden;
+    margin-top: -1em;
+  }
+}
+
+@media screen and (max-width: 480px) {
   .footer__container {
     height: 400px;
     overflow: hidden;
@@ -88,7 +108,7 @@ address {
   }
   .footer__container .footer__contact {
     top: -7em !important;
-    left: 1em !important;
+    left: 1em;
     margin: 0.4em;
     padding: 1.2em;
     overflow: hidden;
@@ -124,7 +144,7 @@ address {
     margin-left: 1.6em;
   }
 } */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .footer__container {
     height: 400px;
   }

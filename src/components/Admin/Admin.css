@@ -73,7 +73,7 @@ td a {
 
   cursor: pointer;
 }
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .admin__container {
     padding: 10px;
     display: flex;
@@ -81,7 +81,7 @@ td a {
     margin-left: -2.5em;
   }
 }
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .admin__container {
     padding: 50px;
     display: flex;

@@ -40,12 +40,16 @@
   width: 100%;
   color: rgb(24, 27, 27);
   text-align: left;
+  overflow: hidden;
   margin-bottom: 15px;
 }
 
 .add__label {
   overflow: hidden;
   margin-bottom: 10px;
+}
+.form-input {
+  overflow: hidden;
 }
 
 .add__input {
@@ -83,7 +87,7 @@ textarea {
   font-weight: bold;
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .overlay {
     height: 100%;
     width: 100%;
@@ -110,7 +114,7 @@ textarea {
     width: 80%;
   }
 }
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .add__wrapper {
     position: relative;
     top: 1em;

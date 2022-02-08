@@ -48,9 +48,14 @@ const PizzaMenu = () => {
                 <aside key={product._id}>
                   <Link to={`/${product._id}`}>
                     <article>
-                      <img src={product.image} />
-                      <h4>{product.title}</h4>
-                      <p>
+                      <div
+                        className="card__image
+                      "
+                      >
+                        <img src={product.image} />
+                      </div>
+                      <h4 className="card__title">{product.title}</h4>
+                      <p className="card__price">
                         <CurrencyFormat
                           renderText={(value) => <> {value}</>}
                           decimalScale={2}
@@ -60,7 +65,7 @@ const PizzaMenu = () => {
                           prefix={"N"}
                         />
                       </p>
-                      <p>{product.description}</p>
+                      <button className="card__btn">view details</button>
                     </article>
                   </Link>
                 </aside>
