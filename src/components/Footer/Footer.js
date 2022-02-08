@@ -8,7 +8,7 @@ const Footer = () => {
         <img src="https://static.toiimg.com/thumb/53110049.cms?width=1200&height=900" />
       </section>
       <section className="work__hours">
-        <h2>work hours</h2>
+        <h1>work hours</h1>
 
         <h4>Monday - Saturday:</h4>
         <h4>09:00 am - 08:00pm</h4>

@@ -77,19 +77,19 @@ const Cart = () => {
       <div className="cart__left">
         <table className="table">
           <tbody>
-            <tr className="trTitle">
+            <tr className="cart__trTitle">
               <th>Product</th>
               <th>Name</th>
-              <th>Extras</th>
+              <th className="one">Extras</th>
               <th>Price</th>
-              <th>Qty</th>
-              <th>Total</th>
+              <th className="one">Qty</th>
+              <th className="one">Total</th>
             </tr>
           </tbody>
           {isLoading && "loading..."}
           {error && "oops!!! error occured"}
           {myproduct && myproduct.length === 0 ? (
-            <>There are no products in cart</>
+            <p className="no">There are no products in cart</p>
           ) : (
             <tbody>
               {myproduct.length > 0 &&

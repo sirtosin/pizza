@@ -47,7 +47,7 @@ const Admin = () => {
   const removeProduct = async (id) => {
     try {
       const res = await axios.delete(
-        "http://localhost:7000/api/v1/product/" + id
+        "https://devpizza.herokuapp.com/api/v1/product/" + id
       );
       console.log(res);
       setPizza(pizza.filter((pizza) => pizza._id !== id));

@@ -4,6 +4,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  overflow: hidden;
   display: flex;
   z-index: 999;
   align-items: center;
@@ -24,6 +25,9 @@
 
 .add__title {
   font-weight: 300;
+  color: teal;
+  overflow: hidden;
+  text-transform: capitalize;
 }
 
 .add__item .loading {
@@ -34,12 +38,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: teal;
+  color: rgb(24, 27, 27);
   text-align: left;
   margin-bottom: 15px;
 }
 
 .add__label {
+  overflow: hidden;
   margin-bottom: 10px;
 }
 
@@ -59,12 +64,14 @@ textarea {
   font-weight: 500;
   font-size: 16px;
   border-radius: 10px;
+  overflow: hidden;
   cursor: pointer;
 }
 
 .add__wrapper .add__close {
   position: relative;
   top: 0em;
+  overflow: hidden;
   left: 15em;
   cursor: pointer;
   border: none;
@@ -77,25 +84,31 @@ textarea {
 }
 
 @media (max-width: 480px) {
-  .add__container {
+  .overlay {
+    height: 100%;
     width: 100%;
+    background-color: rgba(54, 54, 54, 0.568);
+  }
+  .add__container {
+    width: 85%;
     height: 95vh;
     position: fixed;
     top: 1em;
+    left: 1em;
+    margin: 0 1.2em;
     align-items: center;
     justify-content: center;
-    background-color: rgba(197, 197, 197, 0.568);
   }
   .add__wrapper .add__close {
     left: 10em;
     top: 1.5em;
   }
-  /* .add__wrapper {
-    position: relative;
-    top: 1em;
-    height: 600px;
+  .add__wrapper {
     overflow: hidden;
-  } */
+  }
+  .add__item input {
+    width: 80%;
+  }
 }
 @media (max-width: 768px) {
   .add__wrapper {

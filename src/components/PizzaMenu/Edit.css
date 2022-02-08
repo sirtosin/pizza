@@ -92,6 +92,17 @@ a button {
   font-weight: bold;
 }
 
+@media (max-width: 375px) {
+  .edit__item input,
+  textarea {
+    margin-left: 1em !important;
+    width: 70% !important;
+  }
+  .button__container {
+    position: relative;
+    left: -5em;
+  }
+}
 @media (max-width: 480px) {
   .edit__item input,
   textarea {

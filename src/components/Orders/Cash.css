@@ -23,6 +23,7 @@
 }
 
 .cash__title {
+  color: teal;
   font-weight: 300;
 }
 .cash__item textarea {
@@ -34,10 +35,12 @@
   flex-direction: column;
   width: 100%;
   margin-bottom: 15px;
+  overflow: hidden;
 }
 
 .cash__label {
   margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .cash__input {
@@ -69,7 +72,36 @@
 
   font-weight: bold;
 }
-
+.no {
+  position: relative;
+  left: 4em;
+}
+@media (max-width: 375px) {
+  .cash__container {
+    width: 95%;
+    height: 85vh;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(197, 197, 197, 0.568);
+  }
+  .cash__item input,
+  textarea {
+    margin-left: 1em !important;
+    width: 70% !important;
+  }
+  .cash__wrapper .cash__close {
+    top: 1em !important;
+    left: 10em !important;
+  }
+  .cash__title {
+    margin-bottom: 5px;
+    font-weight: 300;
+  }
+  .cash__button {
+    margin-left: 1em;
+  }
+}
 @media (max-width: 480px) {
   .cash__container {
     width: 100%;

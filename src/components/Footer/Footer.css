@@ -1,7 +1,7 @@
 .footer__container {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   height: 500px;
   width: 100%;
   background: rgb(70, 69, 68);
@@ -22,7 +22,7 @@
   height: 400px;
 }
 
-.footer__container .work__hours h2 {
+.footer__container .work__hours h1 {
   text-transform: capitalize;
   color: goldenrod;
 }
@@ -37,8 +37,8 @@
 .footer__container .footer__contact {
   flex-basis: 30%;
   position: relative;
-  margin-left: -7em;
-  top: -3.8em;
+  left: -5em;
+  top: -3em;
 }
 .footer__container .footer__contact h1 {
   color: goldenrod;
@@ -51,36 +51,48 @@ address {
   font-size: 22px;
 }
 
+@media (max-width: 375px) {
+  .footer__container .work__hours {
+    left: -4.6em !important;
+    top: 0em !important;
+  }
+}
+
 @media (max-width: 480px) {
   .footer__container {
     height: 400px;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
   .footer__container .extra {
     display: none;
   }
 
   .footer__container .work__hours {
-    margin-left: 2em;
-    margin-top: 2em;
+    left: -8em;
+    top: 0em !important;
   }
   .footer__container .work__hours h4 {
     font-weight: 500;
     font-size: 17px !important;
   }
 
-  .footer__container .work__hours {
-    margin-left: 1em !important;
-    margin-top: 6em !important;
-  }
-
   .footer__container .footer__contact h4,
-  .footer__container .footer__contact address {
+  .footer__container .footer__contact address,
+  h1 {
     font-size: 17px !important;
     font-weight: 500;
   }
   .footer__container .footer__contact {
-    margin-top: 7em;
-    margin-left: 1.6em;
+    top: -7em !important;
+    left: 1em !important;
+    margin: 0.4em;
+    padding: 1.2em;
+    overflow: hidden;
+    margin-top: -1em;
   }
 }
 /* 
@@ -126,8 +138,7 @@ address {
   }
 
   .footer__container .work__hours {
-    margin-left: -2em;
-    margin-top: 4em;
+    top: -4.4em;
   }
 
   .footer__container .footer__contact h4,
@@ -136,7 +147,6 @@ address {
     font-weight: 600;
   }
   .footer__container .footer__contact {
-    margin-top: 8em;
-    margin-left: 1.6em;
+    top: 1em;
   }
 }
